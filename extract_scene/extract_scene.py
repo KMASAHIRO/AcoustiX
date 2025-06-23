@@ -50,7 +50,7 @@ def simplify_mesh(mesh, target_reduction=0.25):
 
 
 # scene dir
-scene_base_dir = '/media/ztlan/MyDisk/igibson/data/ig_dataset/scenes'
+scene_base_dir = '/home/kato/AVR/igibson/data/ig_dataset/scenes'
 scene_name = 'Pomaria_2_int'
 
 scene_dir = os.path.join(scene_base_dir, scene_name)
@@ -84,7 +84,7 @@ tree = ET.parse(urdf_file_path)
 root = tree.getroot()
 
 # Base path for object files
-object_path = '/media/ztlan/MyDisk/igibson/data/ig_dataset/objects/'
+object_path = '/home/kato/AVR/igibson/data/ig_dataset/objects'
 
 # Iterate over each joint in the URDF
 for joint in root.findall('joint'):

@@ -191,7 +191,7 @@ def ir_simulation(scene_path, rx_pos, tx_pos, rx_ori, tx_ori, simu_config):
     for i, pos in enumerate(rx_pos):
         rx = Receiver(name=f"rx+{i}",
                     position=pos,
-                    orientation=[0,0,0])    
+                    orientation=[0,0,0])
         scene.add(rx)
 
     # ---------- config the material properties here ----------
@@ -358,7 +358,7 @@ def generate_rx_samples(n_random_samples, xyz_max, xyz_min):
     z_flat = np.random.rand(n_random_samples) * (xyz_max[2] - xyz_min[2]) + xyz_min[2]
 
     rx_pos = np.stack([x_flat, y_flat, z_flat], axis=-1)
-    rx_ori = (np.random.rand(*rx_pos.shape) - 0.5) 
+    rx_ori = (np.random.rand(*rx_pos.shape) - 0.5)
     rx_ori[:,2] *= 0
     rx_ori = rx_ori / np.linalg.norm(rx_ori, axis=-1, keepdims=True)
 

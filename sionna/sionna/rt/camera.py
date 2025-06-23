@@ -10,6 +10,7 @@ A camera defines a viewpoint for rendering.
 from .object import Object
 import mitsuba as mi
 import numpy as np
+import drjit as dr
 
 
 class Camera(Object):
@@ -50,8 +51,15 @@ class Camera(Object):
     # The following transform peforms a rotation to ensure Sionna's
     # convention.
     # Note: Mitsuba uses degrees
+
     mi_2_sionna = ( mi.ScalarTransform4f.rotate([0,0,1], 90.0)
                 @ mi.ScalarTransform4f.rotate([1,0,0], 90.0) )
+    
+    #mi_2_sionna = (
+    #    mi.Transform4f().rotate((0, 0, 1), 90.0)
+    #    @ mi.Transform4f().rotate((1, 0, 0), 90.0)
+    #)
+
 
     def __init__(self, name, position, orientation=(0.,0.,0.), look_at=None):
 

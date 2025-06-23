@@ -137,6 +137,8 @@ class SolverBase:
         prim_offsets = []
         objects_id = dr.reinterpret_array_v(mi.UInt32,
                                             mi_scene.shapes_dr()).tf()
+        #objects_id = dr.reinterpret_array_t(mi_scene.shapes_dr(),
+        #                                    mi.UInt32).tf()
         for i,s in zip(objects_id, mi_scene.shapes()):
             if not isinstance(s, mi.Mesh):
                 raise ValueError('Only triangle meshes are supported')

@@ -132,7 +132,7 @@ def generate_scene_xml(scene, xyz_min, xyz_max, volume_thres, bounding):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--scene', type=str, default='./scene/demo_scene')
+    parser.add_argument('--scene', type=str, default='/home/kato/AVR/AcoustiX/extract_scene/Pomaria_2_int')
     parser.add_argument('--bounding', action='store_true', default=False, help='scene bounding box')
     parser.add_argument('--volume_thres', type=float, default=0.2)
 

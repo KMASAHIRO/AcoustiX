@@ -3,11 +3,11 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import tensorflow as tf
-gpu_num = 0 # Use "" to use the CPU
-os.environ["CUDA_VISIBLE_DEVICES"] = f"{gpu_num}"
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-gpus = tf.config.list_physical_devices('GPU')
-tf.config.experimental.set_memory_growth(gpus[0], True)
+#gpu_num = 0 # Use "" to use the CPU
+#os.environ["CUDA_VISIBLE_DEVICES"] = f"{gpu_num}"
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+#gpus = tf.config.list_physical_devices('GPU')
+#tf.config.experimental.set_memory_growth(gpus[0], True)
 tf.get_logger().setLevel('ERROR')
 tf.random.set_seed(1) # Set global random seed for reproducibility
 
@@ -28,8 +28,10 @@ if __name__ == '__main__':
     parser.add_argument('--num-samples', default=1000, help='num of simulated impulse response')
     parser.add_argument('--num-batch', default=20, help='num of IR per batch to be simulated')
     
-    parser.add_argument('--scene-file', default='./scene/example_scene/example_scene.xml', help='path to the scene XML file')
-    parser.add_argument('--dataset-name', default='test', help='dataset name')
+    #parser.add_argument('--scene-file', default='/home/kato/AVR/AcoustiX/extract_scene/Pomaria_2_int/output_scene.xml', help='path to the scene XML file')
+    parser.add_argument('--scene-file', default='/home/kato/AVR/AcoustiX/custom_scene/box_scene/box_scene.xml', help='path to the scene XML file')
+    #parser.add_argument('--dataset-name', default='test', help='dataset name')
+    parser.add_argument('--dataset-name', default='box', help='dataset name')
     
 
     args = parser.parse_args()
@@ -52,8 +54,8 @@ if __name__ == '__main__':
     simu_config = load_cfg(config_file=config_file)
 
     # scene boundary setup
-    xyz_min = [-3,-3,-1]
-    xyz_max = [3,3,1]
+    xyz_min = [-5,-5,0]
+    xyz_max = [5,5,10]
 
     # simulation number
     n_random_samples = args.num_batch # each simulation batch simulation these random samples
@@ -61,7 +63,7 @@ if __name__ == '__main__':
     num_iter = int(num_sample / n_random_samples)
 
     # this example shows the fixed tx positions
-    tx_poses = [[1.0, -2.3, 0]]
+    tx_poses = [[1.0, -2.3, 1.5]]
     tx_oris = [[-0.9, -1.2, 0]]
 
     data = {"speaker": {"positions": tx_poses, "orientations": tx_oris}}
