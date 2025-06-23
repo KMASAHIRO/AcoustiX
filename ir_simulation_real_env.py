@@ -8,6 +8,7 @@ tf.random.set_seed(1)
 
 import json
 import numpy as np
+from tqdm import tqdm
 from simu_utils import ir_simulation, save_ir, load_cfg
 from shutil import copyfile
 
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     # シミュレーション設定読み込み
     simu_config = load_cfg(config_file=config_file)
 
-    for tx_index, tx_pos in enumerate(tx_all):
+    for tx_index, tx_pos in tqdm(enumerate(tx_all), total=len(tx_all), desc="Simulating IR"):
         tx_output_path = os.path.join(output_path, f"tx_{tx_index}")
         os.makedirs(tx_output_path, exist_ok=True)
 
