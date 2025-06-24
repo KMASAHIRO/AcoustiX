@@ -12,7 +12,7 @@ from tqdm import tqdm
 from simu_utils import ir_simulation, save_ir, load_cfg
 from shutil import copyfile
 
-def generate_positions():
+def generate_positions_real_env():
     # 部屋中心が原点
     x_offset = -6.110 / 2 + 1.0  # X=1.0m から開始
     y_offset = -8.807 / 2 + 1.5  # Y=1.5m から開始
@@ -60,11 +60,11 @@ def generate_positions():
 
 if __name__ == '__main__':
     config_file = "./simu_config/basic_config.yml"
-    dataset_name = "real_env_Smooth_concrete_painted"
+    dataset_name = "real_env_Smooth_concrete_painted_16kHz"
     scene_path = "./custom_scene/real_env_Smooth_concrete_painted/real_env_Smooth_concrete_painted.xml"
 
     # 送受信機の配置生成
-    tx_all, mic_centers_all, rx_all = generate_positions()
+    tx_all, mic_centers_all, rx_all = generate_positions_real_env()
 
     # 出力ディレクトリ作成・設定ファイルコピー
     scene_folder = os.path.dirname(os.path.abspath(scene_path))
@@ -109,12 +109,23 @@ if __name__ == '__main__':
         )
 
         # IR保存
-        save_ir(
-            ir_samples=ir_time_all,
-            rx_pos=rx_pos_out,
-            rx_ori=rx_ori_out,
-            tx_pos=tx_pos,
-            tx_ori=tx_ori,
-            save_path=tx_output_path,
-            prefix=0
-        )
+        num_speakers, num_mics, num_channels, _ = rx_all.shape
+
+        rx_pos_reshaped = rx_pos.reshape(num_mics, num_channels, 3)
+        rx_ori_reshaped = rx_ori.reshape(num_mics, num_channels, 3)
+        ir_reshaped = ir_time_all.reshape(num_mics, num_channels, -1)
+
+        for mic_index in range(num_mics):
+            rx_dir = os.path.join(tx_output_path, f"rx_{mic_index}")
+            os.makedirs(rx_dir, exist_ok=True)
+
+            save_ir(
+                ir_samples=ir_reshaped[mic_index],
+                rx_pos=rx_pos_reshaped[mic_index],
+                rx_ori=rx_ori_reshaped[mic_index],
+                tx_pos=tx_pos,
+                tx_ori=tx_ori,
+                save_path=rx_dir,
+                prefix=0
+            )
+

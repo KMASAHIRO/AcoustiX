@@ -12,6 +12,6 @@ ir_config:
   fs: 48000
   ir_len: 4800
   speed: 343.8
-  noise: 0.001
+  noise: 0.0
   tx_pattern: uniform
   rx_pattern: uniform
