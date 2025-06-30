@@ -9,8 +9,8 @@ rt_config:
 
 ir_config:
   attn: 0.001
-  fs: 48000
-  ir_len: 4800
+  fs: 16000
+  ir_len: 1600
   speed: 343.8
   noise: 0.0
   tx_pattern: uniform

@@ -116,4 +116,4 @@ def run_doa_all_tx(
         pickle.dump(results, f)
 
 if __name__ == "__main__":
-    run_doa_all_tx()
+    run_doa_all_tx(base_dir="./custom_scene/real_env_Smooth_concrete_painted/real_env_Smooth_concrete_painted_16kHz")
